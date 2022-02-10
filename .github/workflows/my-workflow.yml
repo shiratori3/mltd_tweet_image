@@ -1,0 +1,39 @@
+# This is a basic workflow to help you get started with Actions
+
+name: mltd_tweet_image
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  tweet_image2notion_db:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '13'
+          cache: 'npm'
+      - run: npm install
+      - id: main
+        run: |
+          touch .env
+          echo IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID >> .env
+          echo NOTION_KEY=$NOTION_KEY >> .env
+          echo NOTION_DATABASE_ID=$NOTION_DATABASE_ID >> .env
+          node ./.github/action/main.js ${{ github.event.issue.body }}
+        env:
+          IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
+          NOTION_KEY: ${{ secrets.NOTION_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+  close_issue:
+    needs: tweet_image2notion_db
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          gh issue close $ISSUE_URL
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}

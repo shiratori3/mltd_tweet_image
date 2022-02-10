@@ -1,0 +1,19 @@
+{
+  "name": "tweet_image2notion_db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js https://twitter.com/imasml_theater/status/1489841466927108098"
+  },
+  "author": "shiratori3",
+  "license": "ISC",
+  "dependencies": {
+    "@notionhq/client": "^0.4.13",
+    "axios": "^0.25.0",
+    "form-data": "^4.0.0"
+  },
+  "engines": {
+    "node": "^13.14.0"
+  }
+}
