@@ -14,7 +14,7 @@ console.log(`tweet_id: ${tid}`);
 
 axios.post('https://tweet-image.glitch.me/get-image', {
     "tweetUrl":tweet_url,
-    "width":"600",
+    "width":"800",
     "padding":"0",
     "theme":"light",
     "hideCard":"false",
